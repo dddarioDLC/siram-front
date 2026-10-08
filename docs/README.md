@@ -8,13 +8,15 @@
 **Sistema Integrado de Registro de Ataques y Mordeduras.** Registro provincial único de casos de
 ataques y mordeduras de perros y gatos a personas en Tierra del Fuego. Lo usan agentes de varios
 organismos (Zoonosis, Salud, CADIC…) para registrar casos, completarlos, detectar duplicados y
-consultar estadísticas. **El proyecto no arranca de cero:** el prototipo de esta carpeta ya define
+consultar estadísticas. **SIRAM trata casos**: para qué sirve cada pantalla y cómo se usa está en
+`narrativa.md`; leelo antes de proponer un cambio. **El proyecto no arranca de cero:** el prototipo de esta carpeta ya define
 cómo se ven y se comportan las pantallas.
 
 ## Archivos de esta carpeta
 
 | Archivo | Qué es |
 |---|---|
+| `narrativa.md` | **Para qué sirve SIRAM y cómo se usa:** la historia, el vocabulario, las pantallas y las respuestas a las dudas del front. |
 | `prototipo-siram.html` | **Referencia de comportamiento.** Prototipo navegable con datos de ejemplo. Abrilo en el navegador antes de implementar cualquier pantalla. |
 | `lenguaje-visual-delta-a-siram.html` | El lenguaje visual completo: qué se hereda de Delta, qué se corrige, tokens, patrones. |
 
@@ -34,9 +36,9 @@ cómo se ven y se comportan las pantallas.
   **Dos niveles de menú, nunca tres.**
 - **Navegación:**
   - Inicio (panel)
-  - Casos: Bandeja, Nuevo caso, Pendientes de validación, Posibles duplicados, Eventos relacionados, Incompletos
+  - Casos: Bandeja, Nuevo caso, Posibles duplicados, Eventos relacionados, Incompletos
   - Consultas: Búsqueda, Mapa, Estadísticas, Exportar
-  - Administración: Usuarios, Organismos, Tipos de denuncia, Importar CSV
+  - Administración: Usuarios, Organismos, Tipos de evento, Importar CSV
 - **Ventanas:** crear/editar/confirmar abren un **drawer lateral** (50 % en escritorio, 100 % en
   teléfono), Cancelar a la izquierda y Guardar a la derecha. Guardar deshabilitado hasta que haya cambios.
 - **Formularios:** un fieldset con leyenda por bloque; 20 px reservados para el error bajo cada
@@ -61,7 +63,7 @@ Un caso tiene tres indicadores independientes. **No los juntes en un solo compon
 
 | Indicador | Cómo se ve | Valores (de ejemplo, los definitivos vienen de la API) |
 |---|---|---|
-| Estado | Píldora en su propia columna | Sin confirmar · Confirmado · En seguimiento · Finalizado · Desestimado · Unificado |
+| Estado | Píldora en su propia columna | Registrado · En seguimiento · Finalizado · Desestimado · Unificado |
 | Motivo de espera | Junto al estado, solo si está «En seguimiento» | Contacto · Respuesta · Certificado |
 | Marcas | Íconos pegados al identificador, a la izquierda; pueden ser varias | Incompleto · Posible duplicado · Posible evento relacionado |
 

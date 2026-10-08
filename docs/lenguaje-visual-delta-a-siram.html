@@ -322,7 +322,7 @@
             Este documento es la teoría. La práctica está en el
             <a href="https://claude.ai/artifact/7UPisj8YAocXDHkUrNTyMg">prototipo navegable</a>,
             donde el sistema se ve funcionando: bandeja de casos, ficha, comparación de
-            registros y cola de validación, en tema claro y oscuro. La implementación va en dos
+            registros e inicio, en tema claro y oscuro. La implementación va en dos
             pasadas: primero una versión base en tema claro y después el oscuro (ver «Qué se corrige»).
           </p>
         </div>
@@ -331,9 +331,9 @@
           <span class="tag">Alcance de esta etapa</span>
           <p>
             Se diseña únicamente el <strong>panel interno</strong>, el que usan los agentes
-            de los organismos. El <strong>canal público</strong> —el formulario ciudadano por
-            QR, R.17— queda para una etapa posterior y con su propia referencia visual.
-            Las dos superficies se encastran: la pública recibe, la interna analiza y gestiona.
+            de los organismos: SIRAM trata <strong>casos</strong>, y los registra siempre un agente
+            (ver <span class="mono">narrativa.md</span>). El <strong>canal público</strong> —el formulario
+            ciudadano por QR, R.17— está en suspenso; si vuelve, tendrá su propia referencia visual.
           </p>
         </div>
       </section>
@@ -359,7 +359,6 @@
             <div class="mi"><span class="ico"></span>Inicio</div>
             <div class="mi sel"><span class="ico"></span>Casos</div>
             <div class="mi child">Bandeja</div>
-            <div class="mi child">Pendientes de validación</div>
             <div class="mi child">Posibles duplicados</div>
             <div class="mi"><span class="ico"></span>Consultas</div>
             <div class="mi"><span class="ico"></span>Administración</div>
@@ -551,8 +550,7 @@
         <h3>Eje 1 · Estado del caso</h3>
         <p>Excluyentes. Es el ciclo de vida, y solo uno puede estar activo.</p>
         <div class="chips">
-          <span class="chip-st c-mute">Sin confirmar</span>
-          <span class="chip-st c-info">Confirmado</span>
+          <span class="chip-st c-mute">Registrado</span>
           <span class="chip-st c-warn">En seguimiento</span>
           <span class="chip-st c-ok">Finalizado</span>
           <span class="chip-st c-crit">Desestimado</span>
@@ -573,7 +571,6 @@
           <span class="chip-st c-crit">Incompleto</span>
           <span class="chip-st c-dup">Posible duplicado</span>
           <span class="chip-st c-rel">Posible evento relacionado</span>
-          <span class="chip-st c-info">Origen ciudadano sin verificar</span>
         </div>
 
         <div class="note warn">
@@ -744,8 +741,8 @@
               <tr>
                 <td class="mono">R.10</td>
                 <td><strong>Bandeja de validación</strong></td>
-                <td>Cola de denuncias ciudadanas con revisar, completar, aprobar o rechazar. Es un flujo de trabajo, no una tabla con acciones.</td>
-                <td><span class="est c-ok">Diseñada</span></td>
+                <td>Pertenecía a la narrativa del formulario público (una cola para verificar lo que cargaba cualquiera). Hoy los casos los registra siempre un agente: queda fuera del menú.</td>
+                <td><span class="est c-mute">Sin efecto</span></td>
               </tr>
               <tr>
                 <td class="mono">R.29</td>
@@ -809,9 +806,9 @@
             <thead><tr><th>Bloque</th><th>Contiene</th><th class="mono">Req.</th></tr></thead>
             <tbody>
               <tr><td><strong>Inicio</strong></td><td>Panel epidemiológico sobre el índice de secciones</td><td class="mono">R.30</td></tr>
-              <tr><td><strong>Casos</strong></td><td>Bandeja · Nuevo caso · Pendientes de validación · Posibles duplicados · Incompletos</td><td class="mono">R.08 · R.10 · R.11 · R.13</td></tr>
+              <tr><td><strong>Casos</strong></td><td>Bandeja · Nuevo caso · Posibles duplicados · Eventos relacionados · Incompletos</td><td class="mono">R.08 · R.10 · R.11 · R.13</td></tr>
               <tr><td><strong>Consultas</strong></td><td>Búsqueda avanzada · Mapa · Estadísticas · Exportar</td><td class="mono">R.20 – R.23 · R.27</td></tr>
-              <tr><td><strong>Administración</strong></td><td>Usuarios · Organismos · Tipos de denuncia · Importar CSV</td><td class="mono">R.01 · R.08 · R.25</td></tr>
+              <tr><td><strong>Administración</strong></td><td>Usuarios · Organismos · Tipos de evento · Importar CSV</td><td class="mono">R.01 · R.08 · R.25</td></tr>
             </tbody>
           </table>
         </div>
@@ -839,8 +836,7 @@
 
         <h3>Del modelo de datos</h3>
         <ul>
-          <li><strong>No existe la relación Denuncia → Caso.</strong> Es la relación central del sistema: el caso consolida una o más denuncias del mismo incidente. En el boceto ER las dos entidades están desconectadas.</li>
-          <li><strong>El estado cuelga de la denuncia, no del caso.</strong> Pero los estados del ciclo de vida son del caso. Probablemente hagan falta dos máquinas de estado distintas: una corta para la denuncia, una larga para el caso.</li>
+          <li><strong>Resuelto: SIRAM trata casos.</strong> La denuncia es un acto oficial ante un ente (Zoonosis, policía…) que se anota como dato en un caso que ya existe; no tiene estados propios ni cola. Los estados son solo del caso.</li>
           <li><strong>Falta el denunciante como rol separado de la víctima.</strong> El formulario de Zoonosis los distingue (<span class="mono">P9</span>) y el hallazgo <span class="mono">HZ07</span> pide definirlo. Hoy el modelo no representa «mi hijo fue mordido y yo hago la denuncia».</li>
         </ul>
 
