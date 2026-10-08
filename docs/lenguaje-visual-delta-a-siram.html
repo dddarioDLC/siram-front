@@ -291,7 +291,8 @@
         <p class="lede">
           SIRAM no es un módulo de Delta y no vive en su monorepo: tiene stack propio
           (React + Vite, Django, PostgreSQL, Docker). Lo que toma prestado es el
-          <strong>lenguaje</strong>, no el código.
+          <strong>lenguaje</strong>, no el código: sus paquetes funcionales se leen como
+          referencia para escribir componentes propios, pero no se instalan ni se importan.
         </p>
         <p>
           Delta resuelve bien un problema que SIRAM también tiene: pantallas de gestión
@@ -321,7 +322,8 @@
             Este documento es la teoría. La práctica está en el
             <a href="https://claude.ai/artifact/7UPisj8YAocXDHkUrNTyMg">prototipo navegable</a>,
             donde el sistema se ve funcionando: bandeja de casos, ficha, comparación de
-            registros y cola de validación, en tema claro y oscuro.
+            registros y cola de validación, en tema claro y oscuro. La implementación va en dos
+            pasadas: primero una versión base en tema claro y después el oscuro (ver «Qué se corrige»).
           </p>
         </div>
 
@@ -435,7 +437,7 @@
             <tbody>
               <tr>
                 <td><strong>El tema oscuro está a medias.</strong> No define tipografía ni los colores de marca, así que al cambiar de tema cambia la familia y la escala completa.</td>
-                <td>Tema oscuro definido entero, con los mismos roles que el claro. Ambos se diseñan a la par.</td>
+                <td>Tema oscuro definido entero, con los mismos roles que el claro. Es obligatorio, pero se implementa en una segunda pasada: primero una versión base en tema claro y después el oscuro, revisando cada vista. Desde el primer componente todo color sale de un token, así el oscuro solo redefine tokens.</td>
               </tr>
               <tr>
                 <td><strong>El tema no se recuerda.</strong> Vuelve a claro en cada recarga: sin <code>localStorage</code>, sin <code>prefers-color-scheme</code>.</td>
@@ -455,7 +457,7 @@
               </tr>
               <tr>
                 <td><strong>Íconos de dos orígenes</strong>: los CRUD de un set, los de dominio de otro.</td>
-                <td>Un solo set para todo el producto.</td>
+                <td>Un solo set para todo el producto: <code>@mui/icons-material</code>, el mismo que usa Delta en casi todas sus pantallas.</td>
               </tr>
               <tr>
                 <td><strong>El <code>color</code> de cada sección solo lo usa la página de inicio</strong>; el menú lateral lo ignora.</td>
@@ -474,7 +476,7 @@
         <span class="sect-num">03</span>
         <h2>Tokens</h2>
         <p class="lede">
-          Delta es MUI v5 con muy poco encima: espaciado base 8 px, radio 4 px, sombras
+          Delta es MUI (v7.1, con React 18.2) con muy poco encima: espaciado base 8 px, radio 4 px, sombras
           y breakpoints de fábrica. Eso se mantiene —es sobrio y funciona. Lo que cambia
           es la paleta y la tipografía.
         </p>
@@ -641,8 +643,8 @@
           <table>
             <thead><tr><th>Señal</th><th>Peso</th><th>Nota</th></tr></thead>
             <tbody>
-              <tr><td>DNI idéntico</td><td>Decisiva</td><td>Solo entre casos de organismo: el formulario ciudadano no lo pide (<span class="mono">HZ01</span>).</td></tr>
-              <tr><td>Teléfono idéntico</td><td>Fuerte</td><td>La única clave fuerte disponible para casos ciudadanos.</td></tr>
+              <tr><td>DNI idéntico</td><td>Decisiva</td><td>Obligatorio en todo registro nuevo, de cualquier origen. Solo puede faltar en registros históricos.</td></tr>
+              <tr><td>Teléfono idéntico</td><td>Fuerte</td><td>La clave principal para cruzar contra registros históricos sin DNI.</td></tr>
               <tr><td>Nombre parecido + edad cercana</td><td>Fuerte</td><td>Tolerante a abreviaturas: «Micaela Sosa» / «M. Sosa».</td></tr>
               <tr><td>Misma fecha del hecho ±1 día</td><td>Media</td><td>La fecha se transcribe a mano desde papel y se equivoca. Y lo que coincide es la fecha del <em>hecho</em>, no la de registro.</td></tr>
               <tr><td>Misma cuadra</td><td>Media</td><td>Depende de que R.22 esté hecho: hoy <span class="mono">H4</span> es texto libre en un formulario y calle+número en el otro.</td></tr>
@@ -845,14 +847,14 @@
         <h3>Del dominio</h3>
         <ul>
           <li><span class="mono">HZ08</span> — En SIRAM no se dan de baja denuncias, pero el trámite de Zoonosis desglosa y devuelve las que no presentan certificado en 48 h hábiles. ¿Cómo se ve una denuncia devuelta que no se puede dar de baja?</li>
-          <li><span class="mono">HZ01</span> — El formulario público no pide DNI y el de Zoonosis sí. Como el DNI es la clave principal de deduplicación, los casos ciudadanos solo se cruzan por correo, teléfono y fecha: más duplicados sin resolver llegando a la bandeja.</li>
+          <li><span class="mono">HZ01</span> — El formulario público 2025 no pedía DNI y el de Zoonosis sí. <strong>Resuelto para los datos nuevos:</strong> el DNI pasa a ser obligatorio en todo canal de entrada. Los registros históricos sin DNI se cruzan por teléfono, nombre y fecha. Falta que el cliente confirme que se puede agregar el DNI al formulario.</li>
           <li><span class="mono">HZ09</span> — Escalas distintas entre formularios («Chico» contra «Pequeño», «No sé» presente en unos campos y ausente en otros). La estructura común necesita un valor <em>desconocido</em> explícito, y eso se diseña, no se improvisa.</li>
         </ul>
 
         <h3>Del sistema de origen</h3>
         <ul>
-          <li>Los tamaños reales de título y subtítulo no se pudieron leer: vienen de un paquete privado que no está instalado en este checkout.</li>
-          <li>El breakpoint exacto de teléfono depende de otro paquete tampoco instalado. Se asume el estándar de 900 px, pero es inferencia.</li>
+          <li>Los tamaños reales de título y subtítulo no se pudieron leer: vienen de un paquete privado (<code>@municipalidadushuaia/*</code>). El equipo tiene acceso de lectura, pero los paquetes todavía no se revisaron; cuando se revisen, se confirman estos valores.</li>
+          <li>El breakpoint exacto de teléfono depende de otro de esos paquetes. Se asume el estándar de 900 px, pero es inferencia hasta revisarlo.</li>
           <li>Las tablas no tienen adaptación propia a pantalla chica: heredan el scroll horizontal de la librería. Para una bandeja de casos con muchas columnas, conviene decidirlo a conciencia.</li>
         </ul>
       </section>

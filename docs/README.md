@@ -22,9 +22,13 @@ cómo se ven y se comportan las pantallas.
 
 - **Base:** Delta, el backoffice React de la Municipalidad de Ushuaia, módulo `modulos/servicios-publicos`
   (commit `9a4cbb6a`, en `/home/dddario/front/delta`, solo lectura; ver también `componentes/theme`,
-  `componentes/base`, `componentes/modulo`). Se hereda **el lenguaje y los patrones, no el código**: los
-  componentes base de Delta envuelven paquetes npm privados (`@municipalidadushuaia/*`) que no están
-  disponibles.
+  `componentes/base`, `componentes/modulo`). Se hereda **el lenguaje visual**. Los componentes base de Delta
+  envuelven paquetes npm privados (`@municipalidadushuaia/*`: componentes, queries, formularios,
+  ventanas). El equipo tiene acceso para **leerlos** (todavía no están en este entorno): son
+  **referencia para escribir componentes propios** de SIRAM, no una dependencia. No se instalan ni se
+  importan.
+- **Versiones de Delta (referencia):** React 18.2 · MUI 7.1 · react-hook-form 7.43 · TanStack Query
+  5.75 · Vite 6.2. SIRAM no está atado a ellas; elegirlas es una decisión del front.
 - **Cáscara:** barra superior fija de 89 px; menú lateral de 240 px colapsable a 65 px; solo el
   contenido scrollea; sin breadcrumbs ni footer. Ítem activo = píldora `border-radius: 0 30px 30px 0`.
   **Dos niveles de menú, nunca tres.**
@@ -39,10 +43,15 @@ cómo se ven y se comportan las pantallas.
   campo; la ayuda va en un ícono junto a la etiqueta, nunca como texto bajo el campo.
 - **Mensajes:** éxito/info se autocierran; advertencia/error exigen cierre manual.
 - **Tokens:** acento `#00776F`, tinta `#16211F`, fondo `#F6F7F7`; colores semánticos ok, warn, crit,
-  info, dup (violeta), rel (tierra). Todo color es un token. Tema claro y oscuro completos; arranca
-  según el sistema operativo y recuerda la elección.
+  info, dup (violeta), rel (tierra). Todo color es un token.
+- **Tema oscuro: obligatorio, en una segunda pasada.** Primero va una versión base en tema claro;
+  después se agrega el oscuro revisando cada vista. Por eso, desde el primer componente, ningún color
+  va escrito a mano: todo sale de un token. Al terminar, el tema arranca según el sistema operativo y
+  recuerda la elección.
 - **Tipografía:** Archivo (títulos), Source Sans 3 (cuerpo, **15 px base**), IBM Plex Mono (datos y
-  códigos). `tabular-nums` en fechas, DNI, edades y cantidades.
+  códigos). `tabular-nums` en fechas, DNI, edades y cantidades. Todas son libres. Gotham, la de Delta,
+  es una licencia comprada y no se usa.
+- **Íconos:** un solo set, `@mui/icons-material`.
 - **Ningún organismo domina:** el organismo aparece como dato (chip, columna, filtro), nunca como
   marca visual del sistema.
 
