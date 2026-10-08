@@ -1,0 +1,64 @@
+# SIRAM — guía del front
+
+> Entregado por el agente de diseño (repo `../proyecto`). No lo edites desde el front: si algo no
+> cierra, avisá al usuario. Última actualización: 2026-10-08.
+
+## Qué es SIRAM
+
+**Sistema Integrado de Registro de Ataques y Mordeduras.** Registro provincial único de casos de
+ataques y mordeduras de perros y gatos a personas en Tierra del Fuego. Lo usan agentes de varios
+organismos (Zoonosis, Salud, CADIC…) para registrar casos, completarlos, detectar duplicados y
+consultar estadísticas. **El proyecto no arranca de cero:** el prototipo de esta carpeta ya define
+cómo se ven y se comportan las pantallas.
+
+## Archivos de esta carpeta
+
+| Archivo | Qué es |
+|---|---|
+| `prototipo-siram.html` | **Referencia de comportamiento.** Prototipo navegable con datos de ejemplo. Abrilo en el navegador antes de implementar cualquier pantalla. |
+| `lenguaje-visual-delta-a-siram.html` | El lenguaje visual completo: qué se hereda de Delta, qué se corrige, tokens, patrones. |
+
+## Lenguaje visual (resumen)
+
+- **Base:** Delta, el backoffice React de la Municipalidad de Ushuaia, módulo `modulos/servicios-publicos`
+  (commit `9a4cbb6a`, en `/home/dddario/front/delta`, solo lectura; ver también `componentes/theme`,
+  `componentes/base`, `componentes/modulo`). Se hereda **el lenguaje y los patrones, no el código**: los
+  componentes base de Delta envuelven paquetes npm privados (`@municipalidadushuaia/*`) que no están
+  disponibles.
+- **Cáscara:** barra superior fija de 89 px; menú lateral de 240 px colapsable a 65 px; solo el
+  contenido scrollea; sin breadcrumbs ni footer. Ítem activo = píldora `border-radius: 0 30px 30px 0`.
+  **Dos niveles de menú, nunca tres.**
+- **Navegación:**
+  - Inicio (panel)
+  - Casos: Bandeja, Nuevo caso, Pendientes de validación, Posibles duplicados, Eventos relacionados, Incompletos
+  - Consultas: Búsqueda, Mapa, Estadísticas, Exportar
+  - Administración: Usuarios, Organismos, Tipos de denuncia, Importar CSV
+- **Ventanas:** crear/editar/confirmar abren un **drawer lateral** (50 % en escritorio, 100 % en
+  teléfono), Cancelar a la izquierda y Guardar a la derecha. Guardar deshabilitado hasta que haya cambios.
+- **Formularios:** un fieldset con leyenda por bloque; 20 px reservados para el error bajo cada
+  campo; la ayuda va en un ícono junto a la etiqueta, nunca como texto bajo el campo.
+- **Mensajes:** éxito/info se autocierran; advertencia/error exigen cierre manual.
+- **Tokens:** acento `#00776F`, tinta `#16211F`, fondo `#F6F7F7`; colores semánticos ok, warn, crit,
+  info, dup (violeta), rel (tierra). Todo color es un token. Tema claro y oscuro completos; arranca
+  según el sistema operativo y recuerda la elección.
+- **Tipografía:** Archivo (títulos), Source Sans 3 (cuerpo, **15 px base**), IBM Plex Mono (datos y
+  códigos). `tabular-nums` en fechas, DNI, edades y cantidades.
+- **Ningún organismo domina:** el organismo aparece como dato (chip, columna, filtro), nunca como
+  marca visual del sistema.
+
+## Cómo se muestra el estado de un caso
+
+Un caso tiene tres indicadores independientes. **No los juntes en un solo componente.**
+
+| Indicador | Cómo se ve | Valores (de ejemplo, los definitivos vienen de la API) |
+|---|---|---|
+| Estado | Píldora en su propia columna | Sin confirmar · Confirmado · En seguimiento · Finalizado · Desestimado · Unificado |
+| Motivo de espera | Junto al estado, solo si está «En seguimiento» | Contacto · Respuesta · Certificado |
+| Marcas | Íconos pegados al identificador, a la izquierda; pueden ser varias | Incompleto · Posible duplicado · Posible evento relacionado |
+
+## De dónde salen los datos
+
+- **Hoy:** no hay API. Usá datos de ejemplo con la forma de los del prototipo, aislados en un solo
+  lugar (p. ej. `src/mocks/`) para poder reemplazarlos sin tocar las pantallas.
+- **Después:** el backend (repo `../back`) publica la API REST con su esquema OpenAPI. Ese esquema es
+  el contrato del front; las dudas sobre datos se resuelven con el back.
