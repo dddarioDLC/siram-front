@@ -1,0 +1,65 @@
+schema: spec-driven
+
+# Contexto del proyecto: se le muestra a la IA al crear CUALQUIER artifact
+# (proposal, design, specs, tasks). Las reglas de UI son obligatorias.
+context: |
+  SIRAM — front del Sistema Integrado de Registro de Ataques y Mordeduras (Tierra del Fuego).
+  Panel interno para agentes de varios organismos (Zoonosis, Salud, CADIC…).
+
+  Fuente de verdad del diseño: docs/ (README.md, prototipo-siram.html,
+  lenguaje-visual-delta-a-siram.html). docs/ NO se edita: la mantiene el agente de diseño.
+  Si algo de docs/ no cierra, se le avisa al usuario.
+
+  Stack: React 19 + Vite 7, MUI 7 (tema con variables CSS), React Router 7,
+  @mui/icons-material como único set de íconos. JavaScript, sin TypeScript.
+
+  Alcance actual: todavía no hay API. Los datos de ejemplo viven en src/mocks/ y las
+  pantallas los obtienen solo a través de src/mocks/index.js. No son definitivos: la forma
+  real la define el backend (OpenAPI). No adelantar integración con la API ni Docker.
+
+  Estructura:
+  - src/tema/: tokens.js (colores, fuentes, medidas de la cáscara) y tema MUI.
+  - src/cascara/: barra superior, menú lateral, layout.
+  - src/componentes/: componentes reutilizables (caso/, tabla/, botones/…).
+  - src/pantallas/: una carpeta por pantalla. Las no implementadas usan EnDiseno.
+  - src/navegacion.js: el menú; src/rutas.jsx genera las rutas a partir de él.
+
+  Reglas de UI OBLIGATORIAS:
+  - Todo color sale de un token del tema. Prohibido escribir hex/rgb en un componente.
+    El tema oscuro llega en una segunda pasada y solo debe redefinir tokens.
+  - Reusar lo que ya existe en src/componentes antes de crear algo nuevo.
+  - Convenciones de componentes (heredadas de Delta): prefijo por familia (Boton…, Campo…,
+    Ventana…, Mensaje…, Cargando…); props propias en castellano (titulo, contenido,
+    acciones), en inglés solo las que pasan directo a MUI; slots por prop, children solo
+    para el cuerpo. Botones como presets semánticos (BotonGuardar, BotonNuevo…).
+  - Cáscara: barra de 89 px, menú de 240 px colapsable a 65 px, solo el contenido
+    scrollea, sin breadcrumbs ni footer. Menú de dos niveles, nunca tres.
+  - Crear/editar/confirmar abren un drawer lateral (50 % escritorio, 100 % teléfono),
+    Cancelar a la izquierda y Guardar a la derecha, Guardar deshabilitado sin cambios.
+  - Formularios: un fieldset con leyenda por bloque, 20 px reservados para el error,
+    ayuda en un ícono junto a la etiqueta (nunca texto bajo el campo).
+  - Mensajes: éxito/info se autocierran; advertencia/error exigen cierre manual.
+  - Estado del caso, motivo de espera y marcas son tres indicadores separados; nunca
+    se juntan en un solo componente.
+  - Ningún organismo domina visualmente: el organismo es un dato (chip, columna, filtro).
+  - Tipografía: Archivo (títulos), Source Sans 3 (cuerpo, 15 px), IBM Plex Mono (datos);
+    tabular-nums en fechas, DNI, edades y cantidades.
+  - Nombres de archivos, componentes, funciones y variables en español.
+
+  Dominio: no inventar reglas de negocio. Mapear solo lo que está en docs/; lo no definido
+  se deja fuera del alcance en vez de suponerlo.
+
+  Commits: Claude no ejecuta commits; le pasa al usuario los comandos, separados por
+  funcionalidad, con formato tipo(ámbito): descripción en español, minúscula, sin punto.
+
+rules:
+  proposal:
+    - Indicar qué pantalla del prototipo (docs/prototipo-siram.html) se toma como referencia
+      y qué queda fuera del alcance.
+  design:
+    - Listar qué componentes de src/componentes se reusan y cuáles se crean, y qué tokens
+      nuevos hacen falta (si hace falta alguno).
+  tasks:
+    - Incluir verificación de que no quedaron colores literales fuera de src/tema/tokens.js,
+      de que npm run lint y npm run build pasan, y de que la pantalla se revisó contra el
+      prototipo.
