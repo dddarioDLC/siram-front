@@ -18,19 +18,20 @@ import MotivoEspera from '@/componentes/caso/MotivoEspera'
 import MarcasCaso from '@/componentes/caso/MarcasCaso'
 import OrigenCaso from '@/componentes/caso/OrigenCaso'
 import EnlaceCaso from '@/componentes/caso/EnlaceCaso'
+import { compararNumeroCaso, criterios } from '@/componentes/caso/criterios'
 import { fuentes } from '@/tema/tokens'
 import { fechaCorta, hora, normalizar } from '@/utiles/formato'
 import { obtenerCasos } from '@/mocks'
 import MenuAccionesCaso from './MenuAccionesCaso'
 import LeyendaMarcas from './LeyendaMarcas'
 
+// Los chips usan los mismos criterios que los contadores del menú.
 const filtros = [
   { clave: 'todos', etiqueta: 'Todos', aplica: () => true },
-  { clave: 'incompletos', etiqueta: 'Incompletos', aplica: (c) => c.marcas.includes('incompleto') },
-  { clave: 'duplicados', etiqueta: 'Posibles duplicados', aplica: (c) => c.marcas.includes('duplicado') },
-  { clave: 'relacionados', etiqueta: 'Eventos relacionados', aplica: (c) => c.marcas.includes('relacionado') },
-  { clave: 'sin_confirmar', etiqueta: 'Sin confirmar', aplica: (c) => c.estado === 'sin_confirmar' },
-  { clave: 'en_seguimiento', etiqueta: 'En seguimiento', aplica: (c) => c.estado === 'en_seguimiento' },
+  { clave: 'incompleto', etiqueta: 'Incompletos', aplica: criterios.incompleto },
+  { clave: 'duplicado', etiqueta: 'Posibles duplicados', aplica: criterios.duplicado },
+  { clave: 'relacionado', etiqueta: 'Eventos relacionados', aplica: criterios.relacionado },
+  { clave: 'enSeguimiento', etiqueta: 'En seguimiento', aplica: criterios.enSeguimiento },
 ]
 
 function coincideBusqueda(caso, termino) {
@@ -78,7 +79,7 @@ const columnas = [
 
 export default function Bandeja() {
   const navigate = useNavigate()
-  const casos = obtenerCasos()
+  const casos = useMemo(() => [...obtenerCasos()].sort(compararNumeroCaso), [])
   const [busqueda, setBusqueda] = useState('')
   const [filtro, setFiltro] = useState('todos')
   const [pagina, setPagina] = useState(0)
@@ -97,7 +98,7 @@ export default function Bandeja() {
     <>
       <EncabezadoPagina
         titulo="Bandeja de casos"
-        bajada="Casos registrados en el sistema, ordenados por fecha de novedad."
+        bajada="Casos registrados en el sistema, ordenados por número de caso."
         extra={<NotaDatosEjemplo />}
       />
 
