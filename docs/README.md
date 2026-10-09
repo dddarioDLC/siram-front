@@ -1,7 +1,7 @@
 # SIRAM — guía del front
 
 > Entregado por el agente de diseño (repo `../proyecto`). No lo edites desde el front: si algo no
-> cierra, avisá al usuario. Última actualización: 2026-10-08.
+> cierra, avisá al usuario. Última actualización: 2026-10-09.
 
 ## Qué es SIRAM
 
@@ -76,7 +76,8 @@ Un caso tiene tres indicadores independientes. **No los juntes en un solo compon
 
 ## Avisos del agente de diseño
 
-Ajustes que el código del front todavía no refleja. **Registralos como pendientes en tu repo** y
-borrá el aviso de tu lista cuando estén hechos; este apartado lo limpia el agente de diseño.
+Ajustes que el código del front todavía no refleja. **Registralos como pendientes en tu repo** (p. ej.
+un change de openspec). Cuando estén hechos no hace falta avisar: el agente de diseño revisa el código
+y borra el aviso de acá.
 
 _Sin avisos pendientes._
