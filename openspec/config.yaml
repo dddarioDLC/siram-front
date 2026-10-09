@@ -6,9 +6,11 @@ context: |
   SIRAM — front del Sistema Integrado de Registro de Ataques y Mordeduras (Tierra del Fuego).
   Panel interno para agentes de varios organismos (Zoonosis, Salud, CADIC…).
 
-  Fuente de verdad del diseño: docs/ (README.md, prototipo-siram.html,
+  Fuente de verdad del diseño: docs/ (README.md, narrativa.md, prototipo-siram.html,
   lenguaje-visual-delta-a-siram.html). docs/ NO se edita: la mantiene el agente de diseño.
   Si algo de docs/ no cierra, se le avisa al usuario.
+  Antes de proponer un cambio, leé docs/narrativa.md: para qué sirve cada pantalla, el
+  vocabulario (SIRAM trata casos; la denuncia es un dato del caso) y qué NO implementar todavía (§6).
 
   Stack: React 19 + Vite 7, MUI 7 (tema con variables CSS), React Router 7,
   @mui/icons-material como único set de íconos. JavaScript, sin TypeScript.
