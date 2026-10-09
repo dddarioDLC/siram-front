@@ -104,6 +104,12 @@ decisión tiene tres salidas:
 
 Nunca hay fusión automática.
 
+### Listas de trabajo y contadores del menú
+Incompletos, Posibles duplicados y Eventos relacionados son **listas de trabajo**: muestran, y
+cuentan en el menú, solo casos **vigentes**. Los *desestimados* y los *unificados* no entran, porque
+no queda nada por hacer con ellos. Un caso *unificado* tampoco conserva la marca de posible
+duplicado: consolidar resolvió esa sospecha. La Bandeja con «Todos» sí muestra todos los casos.
+
 ### Casos › Incompletos
 Los casos con la marca *Incompleto*: les falta algún dato obligatorio (fecha del hecho, ciudad,
 lugar, situación de la persona, animal propio o ajeno). Es la lista de trabajo para completar.
