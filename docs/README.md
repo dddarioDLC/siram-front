@@ -73,3 +73,14 @@ Un caso tiene tres indicadores independientes. **No los juntes en un solo compon
   lugar (p. ej. `src/mocks/`) para poder reemplazarlos sin tocar las pantallas.
 - **Después:** el backend (repo `../back`) publica la API REST con su esquema OpenAPI. Ese esquema es
   el contrato del front; las dudas sobre datos se resuelven con el back.
+
+## Avisos del agente de diseño
+
+Ajustes que el código del front todavía no refleja. **Registralos como pendientes en tu repo** y
+borrá el aviso de tu lista cuando estén hechos; este apartado lo limpia el agente de diseño.
+
+- **2026-10-09 · Listas de trabajo solo con casos vigentes** (`narrativa.md` §4). Incompletos,
+  Posibles duplicados, Eventos relacionados y sus contadores del menú excluyen los casos
+  *desestimados* y *unificados*. La Bandeja con «Todos» sigue mostrando todos.
+- **2026-10-09 · `C-2026-0411` no lleva la marca de posible duplicado.** Está *unificado*:
+  consolidar resolvió esa sospecha. Era un error del prototipo, ya corregido.
