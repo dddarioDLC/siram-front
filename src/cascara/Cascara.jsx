@@ -1,14 +1,22 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Outlet } from 'react-router'
 import { Box, Drawer, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import BarraSuperior from './BarraSuperior'
 import MenuLateral from './MenuLateral'
 import { cascara } from '@/tema/tokens'
-import { obtenerContadoresMenu, usuarioActual } from '@/mocks'
+import { navegacion } from '@/navegacion'
+import { contar } from '@/componentes/caso/criterios'
+import { obtenerCasos, usuarioActual } from '@/mocks'
 
 const { alturaBarra, anchoMenu, anchoMenuColapsado } = cascara
 const transicion = 'width .5s ease, left .5s ease'
+
+// Cantidades del menú: total de casos que cumplen el criterio de cada ítem (sin búsqueda ni filtros).
+function calcularContadores(casos) {
+  const claves = navegacion.flatMap((item) => item.hijos ?? []).map((h) => h.contador).filter(Boolean)
+  return Object.fromEntries(claves.map((clave) => [clave, contar(casos, clave)]))
+}
 
 // Barra y menú quedan clavados; el contenido es la única zona que scrollea.
 // En teléfono (< 900 px) el menú se abre como cajón desde la hamburguesa.
@@ -17,7 +25,7 @@ export default function Cascara() {
   const esTelefono = useMediaQuery(theme.breakpoints.down('md'))
   const [colapsado, setColapsado] = useState(false)
   const [cajonAbierto, setCajonAbierto] = useState(false)
-  const contadores = obtenerContadoresMenu()
+  const contadores = useMemo(() => calcularContadores(obtenerCasos()), [])
 
   const anchoActual = colapsado ? anchoMenuColapsado : anchoMenu
 

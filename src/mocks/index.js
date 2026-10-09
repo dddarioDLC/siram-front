@@ -6,14 +6,4 @@ export function obtenerCasos() {
   return casos
 }
 
-// Contadores del menú lateral (del prototipo).
-export function obtenerContadoresMenu() {
-  return {
-    pendientesValidacion: 14,
-    posiblesDuplicados: 8,
-    eventosRelacionados: 5,
-    incompletos: 23,
-  }
-}
-
 export const usuarioActual = { nombre: 'Daniela Marchisoney', iniciales: 'DM' }

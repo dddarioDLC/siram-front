@@ -5,7 +5,8 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 
 // Menú lateral según docs/README.md. Dos niveles, nunca tres.
 // `implementada: false` muestra la pantalla "En diseño".
-// `contador` es la clave dentro de obtenerContadoresMenu().
+// `contador` es el nombre de un criterio de src/componentes/caso/criterios.js:
+// el menú muestra cuántos casos lo cumplen.
 export const navegacion = [
   { titulo: 'Inicio', ruta: '/', icono: HomeOutlinedIcon, implementada: false },
   {
@@ -14,10 +15,9 @@ export const navegacion = [
     hijos: [
       { titulo: 'Bandeja', ruta: '/casos', implementada: true },
       { titulo: 'Nuevo caso', ruta: '/casos/nuevo' },
-      { titulo: 'Pendientes de validación', ruta: '/casos/validacion', contador: 'pendientesValidacion' },
-      { titulo: 'Posibles duplicados', ruta: '/casos/duplicados', contador: 'posiblesDuplicados' },
-      { titulo: 'Eventos relacionados', ruta: '/casos/eventos-relacionados', contador: 'eventosRelacionados' },
-      { titulo: 'Incompletos', ruta: '/casos/incompletos', contador: 'incompletos' },
+      { titulo: 'Posibles duplicados', ruta: '/casos/duplicados', contador: 'duplicado' },
+      { titulo: 'Eventos relacionados', ruta: '/casos/eventos-relacionados', contador: 'relacionado' },
+      { titulo: 'Incompletos', ruta: '/casos/incompletos', contador: 'incompleto' },
     ],
   },
   {
@@ -36,7 +36,7 @@ export const navegacion = [
     hijos: [
       { titulo: 'Usuarios', ruta: '/administracion/usuarios' },
       { titulo: 'Organismos', ruta: '/administracion/organismos' },
-      { titulo: 'Tipos de denuncia', ruta: '/administracion/tipos-denuncia' },
+      { titulo: 'Tipos de evento', ruta: '/administracion/tipos-evento' },
       { titulo: 'Importar CSV', ruta: '/administracion/importar-csv' },
     ],
   },
