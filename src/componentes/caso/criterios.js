@@ -1,10 +1,18 @@
 // Criterios de caso: una sola definición de "qué casos entran" en cada lista.
 // Los usan los chips de la Bandeja y los contadores del menú, así nunca se contradicen.
 
+// Las listas de trabajo (Incompletos, Posibles duplicados, Eventos relacionados) solo muestran
+// casos vigentes: con los desestimados y los unificados no queda nada por hacer.
+export function esVigente(caso) {
+  return caso.estado !== 'desestimado' && caso.estado !== 'unificado'
+}
+
+const vigenteConMarca = (marca) => (caso) => esVigente(caso) && caso.marcas.includes(marca)
+
 export const criterios = {
-  incompleto: (caso) => caso.marcas.includes('incompleto'),
-  duplicado: (caso) => caso.marcas.includes('duplicado'),
-  relacionado: (caso) => caso.marcas.includes('relacionado'),
+  incompleto: vigenteConMarca('incompleto'),
+  duplicado: vigenteConMarca('duplicado'),
+  relacionado: vigenteConMarca('relacionado'),
   enSeguimiento: (caso) => caso.estado === 'en_seguimiento',
 }
 

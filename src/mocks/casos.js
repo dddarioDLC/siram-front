@@ -57,7 +57,7 @@ export const casos = [
     estado: 'unificado',
     unificadoEn: 'C-2026-0402',
     origen: 'Hospital Regional RG',
-    marcas: ['duplicado'],
+    marcas: [],
   },
   {
     id: 'C-2026-0409',
