@@ -83,9 +83,11 @@ debe dar ella y esta comparación se elimina.
 
 ## Risks / Trade-offs
 
-- [Direcciones guardadas `/casos/validacion` y `/administracion/tipos-denuncia` dejan de
-  existir] → muestran "Página no encontrada"; no se agregan redirecciones porque el front todavía
-  no está en uso.
+- [Direcciones guardadas que dejan de existir] → `/administracion/tipos-denuncia` muestra
+  "Página no encontrada"; `/casos/validacion` cae en `/casos/:id` y muestra la ficha "En diseño".
+  No se restringe el formato del identificador en la ruta, porque es texto opaco que genera el
+  back; el caso inexistente se resuelve al implementar la Ficha. No se agregan redirecciones
+  porque el front todavía no está en uso.
 - [Ordenar comparando el identificador] → aceptable con datos de ejemplo; se reemplaza por el
   orden de la API.
 - [Si en el futuro el menú debe excluir casos cerrados, menú y chips dejarían de coincidir] →

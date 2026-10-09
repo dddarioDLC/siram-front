@@ -7,7 +7,7 @@ registrados.
 ## Requirements
 ### Requirement: Encabezado de la Bandeja
 El sistema SHALL mostrar el título "Bandeja de casos", la bajada "Casos registrados en el sistema,
-ordenados por fecha de novedad." y un rótulo "Datos de ejemplo".
+ordenados por número de caso." y un rótulo "Datos de ejemplo".
 
 #### Scenario: Abrir la Bandeja
 - **WHEN** el usuario entra a `/casos`
@@ -16,7 +16,8 @@ ordenados por fecha de novedad." y un rótulo "Datos de ejemplo".
 ### Requirement: Tabla de casos
 El sistema SHALL listar los casos en una tabla con las columnas Marcas, Caso, Fecha del hecho,
 Víctima, Lugar, Animal, Lesión, Estado, Origen y una columna de acciones fija a la derecha. Los
-casos DEBEN mostrarse en el orden en que llegan de la fuente de datos.
+casos DEBEN ordenarse por número de caso, del más reciente al más antiguo, sin importar el orden
+en que lleguen de la fuente de datos.
 
 | Columna | Contenido |
 |---|---|
@@ -29,6 +30,10 @@ casos DEBEN mostrarse en el orden en que llegan de la fuente de datos.
 | Lesión | tipo de lesión |
 | Estado | píldora de estado, motivo de espera o caso destino si corresponde |
 | Origen | chip del organismo |
+
+#### Scenario: Orden por número de caso
+- **WHEN** la fuente de datos entrega los casos desordenados
+- **THEN** la tabla muestra primero `C-2026-0418` y último `C-2026-0388`
 
 #### Scenario: Pantalla angosta
 - **WHEN** el ancho disponible es menor que el de la tabla
@@ -54,9 +59,10 @@ página.
 
 ### Requirement: Filtros rápidos
 El sistema SHALL ofrecer los filtros Todos, Incompletos, Posibles duplicados, Eventos
-relacionados, Sin confirmar y En seguimiento, con uno solo activo a la vez (Todos al entrar).
-Cada filtro DEBE mostrar entre paréntesis cuántos casos le corresponden **dentro del resultado
-de la búsqueda actual**. Al cambiar de filtro se vuelve a la primera página.
+relacionados y En seguimiento, con uno solo activo a la vez (Todos al entrar). Cada filtro DEBE
+mostrar entre paréntesis cuántos casos le corresponden **dentro del resultado de la búsqueda
+actual**, calculado a partir de los casos y nunca escrito a mano. Al cambiar de filtro se vuelve
+a la primera página.
 
 | Filtro | Casos que incluye |
 |---|---|
@@ -64,7 +70,6 @@ de la búsqueda actual**. Al cambiar de filtro se vuelve a la primera página.
 | Incompletos | con marca Incompleto |
 | Posibles duplicados | con marca Posible duplicado |
 | Eventos relacionados | con marca Posible evento relacionado |
-| Sin confirmar | en estado Sin confirmar |
 | En seguimiento | en estado En seguimiento |
 
 #### Scenario: Elegir un filtro
@@ -74,6 +79,10 @@ de la búsqueda actual**. Al cambiar de filtro se vuelve a la primera página.
 #### Scenario: Cantidades con búsqueda
 - **WHEN** el usuario busca "Ushuaia"
 - **THEN** la cantidad de cada filtro cuenta solo los casos de Ushuaia
+
+#### Scenario: Sin filtro por confirmación
+- **WHEN** el usuario ve los filtros rápidos
+- **THEN** no hay ningún filtro "Sin confirmar" ni "Confirmado"
 
 ### Requirement: Paginación
 El sistema SHALL paginar la tabla con 10 filas por página por defecto y opciones de 5, 10 y 25.

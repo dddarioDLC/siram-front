@@ -50,7 +50,7 @@ actualizado, y `docs/narrativa.md` §2–§4.
 
 - Código: `src/navegacion.js`, `src/cascara/` (contadores), `src/componentes/caso/catalogos.js`,
   `src/pantallas/casos/bandeja/Bandeja.jsx`, `src/mocks/`.
-- Quien tenga guardada la dirección `/casos/validacion` o `/administracion/tipos-denuncia` verá
-  "Página no encontrada".
+- Quien tenga guardada `/administracion/tipos-denuncia` verá "Página no encontrada";
+  `/casos/validacion` cae en la ruta de la ficha (`/casos/:id`) y muestra la ficha "En diseño".
 - Avisar al agente de diseño: la bajada del prototipo todavía dice "ordenados por fecha de
   novedad", pero la narrativa dice que hoy se ordena por número de caso.

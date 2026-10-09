@@ -28,4 +28,6 @@ validación.
 
 #### Scenario: Dirección de la antigua cola de validación
 - **WHEN** el usuario abre `/casos/validacion`
-- **THEN** ve "Página no encontrada"
+- **THEN** no hay ningún ítem del menú activo y se muestra la ficha "En diseño", como para
+  cualquier identificador de caso; qué mostrar ante un caso inexistente se define al implementar
+  la Ficha
