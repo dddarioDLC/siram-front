@@ -1,9 +1,8 @@
 // Valores de ejemplo (docs/README.md). Los definitivos vienen de la API.
-// `color` es una clave de la paleta del tema; `neutral` es el de "Sin confirmar".
+// `color` es una clave de la paleta del tema; `neutral` es el de "Registrado".
 
 export const estados = {
-  sin_confirmar: { etiqueta: 'Sin confirmar', color: 'neutral' },
-  confirmado: { etiqueta: 'Confirmado', color: 'info' },
+  registrado: { etiqueta: 'Registrado', color: 'neutral' },
   en_seguimiento: { etiqueta: 'En seguimiento', color: 'warning' },
   finalizado: { etiqueta: 'Finalizado', color: 'success' },
   desestimado: { etiqueta: 'Desestimado', color: 'error' },
