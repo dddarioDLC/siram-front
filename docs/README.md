@@ -79,8 +79,4 @@ Un caso tiene tres indicadores independientes. **No los juntes en un solo compon
 Ajustes que el código del front todavía no refleja. **Registralos como pendientes en tu repo** y
 borrá el aviso de tu lista cuando estén hechos; este apartado lo limpia el agente de diseño.
 
-- **2026-10-09 · Listas de trabajo solo con casos vigentes** (`narrativa.md` §4). Incompletos,
-  Posibles duplicados, Eventos relacionados y sus contadores del menú excluyen los casos
-  *desestimados* y *unificados*. La Bandeja con «Todos» sigue mostrando todos.
-- **2026-10-09 · `C-2026-0411` no lleva la marca de posible duplicado.** Está *unificado*:
-  consolidar resolvió esa sospecha. Era un error del prototipo, ya corregido.
+_Sin avisos pendientes._
